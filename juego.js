@@ -48,7 +48,7 @@ function iniciarJuego() {
         // Cargamos el siguiente sitio
         var sitioDisponible = db.sitios.find(s => !grupoActual.progreso.includes(s.id));
 
-        map.setView([lat, lng], 15);
+        map.setView([lat, lng], 21);
 
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
 
@@ -68,7 +68,7 @@ function iniciarJuego() {
 
                 var distancia = calcularDistancia(miUbicacion.getLatLng().lat, miUbicacion.getLatLng().lng, sitio.lat, sitio.lng);
 
-                if (distancia < 10) {
+                if (distancia < 20) {
 
                     alert("¡Pista desbloqueada en " + sitio.nombre + "!");
                     grupoActual.progreso.push(sitio.id);
