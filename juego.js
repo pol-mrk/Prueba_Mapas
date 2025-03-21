@@ -118,6 +118,11 @@ function iniciarJuego() {
 
     }, error => {
         alert("No se pudo obtener la ubicación.");
+    },
+    {
+        enableHighAccuracy: true,
+        timeout: 10000,
+        maximumAge: 0
     });
 }
 
