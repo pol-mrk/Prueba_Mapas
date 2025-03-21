@@ -111,9 +111,19 @@ function iniciarJuego() {
 
         // Aquí comprobaremos los cambios de ubicación
         navigator.geolocation.watchPosition(pos => {
+
             var lat = pos.coords.latitude;
             var lng = pos.coords.longitude;
+            var precision = pos.coords.accuracy;
+
+            if (precision > 100) {
+                console.log("Ubicación ignorada por baja precisión:", precision, "metros");
+                return;
+            }
+
+            console.log("Ubicación aceptada:", lat, lng, "Precisión:", precision, "metros");
             miUbicacion.setLatLng([lat, lng]);
+            
         });
 
     }, error => {
@@ -121,7 +131,7 @@ function iniciarJuego() {
     },
     {
         enableHighAccuracy: true,
-        timeout: 10000,
+        timeout: 3000,
         maximumAge: 0
     });
 }
