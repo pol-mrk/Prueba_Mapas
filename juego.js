@@ -46,7 +46,7 @@ function iniciarJuego() {
         var lng = pos.coords.longitude;
         
         // Cargamos el siguiente sitio
-        // var sitioDisponible = db.sitios.find(s => !grupoActual.progreso.includes(s.id));
+        var sitioDisponible = db.sitios.find(s => !grupoActual.progreso.includes(s.id));
 
         map.setView([lat, lng], 15);
 
@@ -60,53 +60,53 @@ function iniciarJuego() {
         cargarSitios();
 
         // Verificamos el progreso
-        // function verificarProgreso(sitio, marcador) {
+        function verificarProgreso(sitio, marcador) {
 
-        //     var progreso = grupoActual ? grupoActual.progreso : [];
+            var progreso = grupoActual ? grupoActual.progreso : [];
 
-        //     if (!progreso.includes(sitio.id)) {
+            if (!progreso.includes(sitio.id)) {
 
-        //         var distancia = calcularDistancia(miUbicacion.getLatLng().lat, miUbicacion.getLatLng().lng, sitio.lat, sitio.lng);
+                var distancia = calcularDistancia(miUbicacion.getLatLng().lat, miUbicacion.getLatLng().lng, sitio.lat, sitio.lng);
 
-        //         if (distancia < 10) {
+                if (distancia < 10) {
 
-        //             alert("¡Pista desbloqueada en " + sitio.nombre + "!");
-        //             grupoActual.progreso.push(sitio.id);
-        //             localStorage.setItem("grupoActivo", JSON.stringify(grupoActual));
+                    alert("¡Pista desbloqueada en " + sitio.nombre + "!");
+                    grupoActual.progreso.push(sitio.id);
+                    localStorage.setItem("grupoActivo", JSON.stringify(grupoActual));
 
-        //             // Solo eliminamos el marcador cuando el sitio ha sido desbloqueado
-        //             map.removeLayer(marcador);
+                    // Solo eliminamos el marcador cuando el sitio ha sido desbloqueado
+                    map.removeLayer(marcador);
 
-        //             // Cargamos el siguiente sitio
-        //             cargarSitios();
+                    // Cargamos el siguiente sitio
+                    cargarSitios();
 
-        //         }
+                }
 
-        //     }
-        // }
+            }
+        }
 
         // Aquí cargaremos los sitios
         function cargarSitios() {
 
             // Si el siguiente sitio ha cargado, carga el nuevo marcador y su icono del nuevo sitio y vuelve a verificar el progreso
-            // if (sitioDisponible) {
-            db.sitios.forEach(sitio => {
+            if (sitioDisponible) {
+            // db.sitios.forEach(sitio => {
 
-                // var icono = L.icon({
-                //     iconUrl: sitioDisponible.icon,
-                //     iconSize: [40, 40]
-                // });
                 var icono = L.icon({
-                    iconUrl: sitio.icon,
+                    iconUrl: sitioDisponible.icon,
                     iconSize: [40, 40]
                 });
+                // var icono = L.icon({
+                //     iconUrl: sitio.icon,
+                //     iconSize: [40, 40]
+                // });
 
-                // var marcador = L.marker([sitioDisponible.lat, sitioDisponible.lng], { icon: icono }).addTo(map).bindPopup("<strong>" + sitioDisponible.nombre + "</strong><br>" + sitioDisponible.pista);
-                var marcador = L.marker([sitio.lat, sitio.lng], { icon: icono }).addTo(map).bindPopup("<strong>" + sitio.nombre + "</strong><br>" + sitio.pista);
+                var marcador = L.marker([sitioDisponible.lat, sitioDisponible.lng], { icon: icono }).addTo(map).bindPopup("<strong>" + sitioDisponible.nombre + "</strong><br>" + sitioDisponible.pista);
+                // var marcador = L.marker([sitio.lat, sitio.lng], { icon: icono }).addTo(map).bindPopup("<strong>" + sitio.nombre + "</strong><br>" + sitio.pista);
 
-                // verificarProgreso(sitioDisponible, marcador);
-            });
-            // }
+                verificarProgreso(sitioDisponible, marcador);
+            // });
+            }
         }
 
         // Aquí comprobaremos los cambios de ubicación
