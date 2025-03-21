@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - DescubreMap</title>
+</head>
+<body>
+    <h1>Administrador</h1>
+    
+    <!-- Formulario para agregar o editar sitios -->
+    <h2>Crear/Editar Sitio</h2>
+    <form id="form-sitios">
+        <input type="text" id="name" placeholder="Nombre">
+        <input type="number" id="lat" placeholder="Latitud" step="any">
+        <input type="number" id="lng" placeholder="Longitud" step="any">
+        
+        <!-- Selección de tags -->
+        <select id="tags">
+            <option value="colegio">Colegio</option>
+            <option value="kebab">Kebab</option>
+            <option value="hospital">Hospital</option>
+        </select>
+        
+        <!-- Selección de iconos -->
+        <select id="selector-iconos">
+            <option value="https://cdn-icons-png.flaticon.com/128/158/158234.png">Colegio</option>
+            <option value="https://cdn-icons-png.flaticon.com/128/6978/6978278.png">Kebab</option>
+            <option value="https://cdn-icons-png.flaticon.com/128/2895/2895071.png">Hospital</option>
+        </select>
+        <button type="submit">Crear/Editar sitio</button>
+    </form>
+    
+    <!-- Filtro de sitios por tags -->
+    <h3>Filtrar Sitios por Tag</h3>
+    <select id="tag-filter">
+        <option value="">Todos</option>
+        <option value="colegio">Colegio</option>
+        <option value="kebab">Kebab</option>
+        <option value="hospital">Hospital</option>
+    </select>
+    
+    <h2>Tablero de Sitios</h2>
+    <table id="tabla-sitios">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Latitud</th>
+                <th>Longitud</th>
+                <th>Tags</th>
+                <th>Icono</th>
+            </tr>
+        </thead>
+        <tbody id="sitios"></tbody>
+    </table>
+    
+    <h2>Tablero de Grupos</h2>
+    <div id="ranking"></div>
+
+    <button onclick="window.location.href='index.html'">Juego Mapa</button>
+
+    <script src="admin.js"></script>
+</body>
+</html>

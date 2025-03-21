@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DescubreMap</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <style>
+        #map { height: 600px; }
+        .panel {
+            padding: 20px;
+            background: #f0f0f0;
+            margin: 10px;
+            border-radius: 5px;
+        }
+        .form-group { margin-bottom: 10px; }
+    </style>
+</head>
+<body>
+    <br>
+    <button onclick="window.location.href='admin.html'">Administrador</button>
+    <div class="container">
+        <h1>DescubreMap - Juego de descubrimiento</h1>
+        <p>Introduce el código del grupo para jugar:</p>
+        <input type="text" id="codigoGrupo" placeholder="Código de grupo">
+        <button onclick="unirseAGrupo()">Unirse</button>
+        <div id="mensaje"></div>
+        <div id="map"></div>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src="juego.js"></script>
+</body>
+</html>
