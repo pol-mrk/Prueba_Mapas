@@ -67,29 +67,33 @@ function iniciarJuego() {
             radius: 85           // Radio en metros
         }).addTo(map);
 
-        // Verificamos el progreso
+        // Verificamos el progreso y desbloqueamos solo el siguiente sitio en orden
         function verificarProgreso(sitio, marcador) {
-
             var progreso = grupoActual ? grupoActual.progreso : [];
+            
+            // Ordenamos los sitios por su ID (o "orden" si usas esa propiedad)
+            db.sitios.sort((a, b) => a.id - b.id); 
 
-            if (!progreso.includes(sitio.id)) {
+            // Determinar cuál es el siguiente sitio a desbloquear
+            var siguienteSitio = db.sitios[progreso.length]; // El siguiente en la secuencia
 
-                var distancia = calcularDistancia(miUbicacion.getLatLng().lat, miUbicacion.getLatLng().lng, sitio.lat, sitio.lng);
+            // Solo permitimos desbloquear el siguiente sitio en la secuencia
+            if (sitio.id === siguienteSitio.id) {
+                var distancia = calcularDistancia(
+                    miUbicacion.getLatLng().lat, 
+                    miUbicacion.getLatLng().lng, 
+                    sitio.lat, 
+                    sitio.lng
+                );
 
                 if (distancia < 85) {
-
                     alert("¡Pista desbloqueada en " + sitio.nombre + "!");
                     grupoActual.progreso.push(sitio.id);
                     localStorage.setItem("grupoActivo", JSON.stringify(grupoActual));
 
-                    // Solo eliminamos el marcador cuando el sitio ha sido desbloqueado
-                    // map.removeLayer(marcador);
-
-                    // Cargamos el siguiente sitio
+                    // Volver a cargar sitios para mostrar solo el siguiente
                     cargarSitios();
-
                 }
-
             }
         }
 
