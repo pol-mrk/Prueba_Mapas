@@ -59,6 +59,14 @@ function iniciarJuego() {
 
         cargarSitios();
 
+        // Añadir un círculo con un radio de 20 metros desde la ubicación actual
+        var radioSeguridad = L.circle([lat, lng], {
+            color: 'blue',       // Color del borde
+            fillColor: 'blue',   // Color de relleno
+            fillOpacity: 0.3,    // Opacidad del relleno
+            radius: 80           // Radio en metros
+        }).addTo(map);
+
         // Verificamos el progreso
         function verificarProgreso(sitio, marcador) {
 
@@ -68,7 +76,7 @@ function iniciarJuego() {
 
                 var distancia = calcularDistancia(miUbicacion.getLatLng().lat, miUbicacion.getLatLng().lng, sitio.lat, sitio.lng);
 
-                if (distancia < 20) {
+                if (distancia < 80) {
 
                     alert("¡Pista desbloqueada en " + sitio.nombre + "!");
                     grupoActual.progreso.push(sitio.id);
@@ -123,6 +131,27 @@ function iniciarJuego() {
 
             console.log("Ubicación aceptada:", lat, lng, "Precisión:", precision, "metros");
             miUbicacion.setLatLng([lat, lng]);
+            radioSeguridad.setLatLng([lat, lng]);
+
+            // Verificar si está lo suficientemente cerca del sitio para desbloquearlo
+            if (sitioDisponible && !grupoActual.progreso.includes(sitioDisponible.id)) {
+                var distancia = calcularDistancia(lat, lng, sitioDisponible.lat, sitioDisponible.lng);
+                
+                if (distancia < 90) {
+                    alert("¡Pista desbloqueada en " + sitioDisponible.nombre + "!");
+                    
+                    // Agregar sitio a progreso y actualizar en `localStorage`
+                    grupoActual.progreso.push(sitioDisponible.id);
+                    localStorage.setItem("grupoActivo", JSON.stringify(grupoActual));
+
+                    // Eliminar marcador del mapa
+                    map.removeLayer(sitioDisponible.marcador);
+
+                    // Cargar el siguiente sitio
+                    sitioDisponible = db.sitios.find(s => !grupoActual.progreso.includes(s.id));
+                    cargarSitios();
+                }
+            }
             
         });
 
