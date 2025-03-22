@@ -46,7 +46,7 @@ function iniciarJuego() {
         var lng = pos.coords.longitude;
         
         // Cargamos el siguiente sitio
-        var sitioDisponible = db.sitios.find(s => !grupoActual.progreso.includes(s.id));
+        // var sitioDisponible = db.sitios.find(s => !grupoActual.progreso.includes(s.id));
 
         map.setView([lat, lng], 21);
 
@@ -83,7 +83,7 @@ function iniciarJuego() {
                     localStorage.setItem("grupoActivo", JSON.stringify(grupoActual));
 
                     // Solo eliminamos el marcador cuando el sitio ha sido desbloqueado
-                    map.removeLayer(marcador);
+                    // map.removeLayer(marcador);
 
                     // Cargamos el siguiente sitio
                     cargarSitios();
@@ -97,24 +97,25 @@ function iniciarJuego() {
         function cargarSitios() {
 
             // Si el siguiente sitio ha cargado, carga el nuevo marcador y su icono del nuevo sitio y vuelve a verificar el progreso
-            if (sitioDisponible) {
-            // db.sitios.forEach(sitio => {
+            // if (sitioDisponible) {
+            db.sitios.forEach(sitio => {
 
+                // var icono = L.icon({
+                    // iconUrl: sitioDisponible.icon,
+                    // iconSize: [40, 40]
+                // });
                 var icono = L.icon({
-                    iconUrl: sitioDisponible.icon,
+                    iconUrl: sitio.icon,
                     iconSize: [40, 40]
                 });
-                // var icono = L.icon({
-                //     iconUrl: sitio.icon,
-                //     iconSize: [40, 40]
-                // });
 
-                var marcador = L.marker([sitioDisponible.lat, sitioDisponible.lng], { icon: icono }).addTo(map).bindPopup("<strong>" + sitioDisponible.nombre + "</strong><br>" + sitioDisponible.pista);
-                // var marcador = L.marker([sitio.lat, sitio.lng], { icon: icono }).addTo(map).bindPopup("<strong>" + sitio.nombre + "</strong><br>" + sitio.pista);
+                // var marcador = L.marker([sitioDisponible.lat, sitioDisponible.lng], { icon: icono }).addTo(map).bindPopup("<strong>" + sitioDisponible.nombre + "</strong><br>" + sitioDisponible.pista);
+                var marcador = L.marker([sitio.lat, sitio.lng], { icon: icono }).addTo(map).bindPopup("<strong>" + sitio.nombre + "</strong><br>" + sitio.pista);
 
-                verificarProgreso(sitioDisponible, marcador);
-            // });
-            }
+                // verificarProgreso(sitioDisponible, marcador);
+                verificarProgreso(sitio, marcador);
+            });
+            // }
         }
 
         // Aquí comprobaremos los cambios de ubicación
