@@ -134,25 +134,22 @@ function iniciarJuego() {
             miUbicacion.setLatLng([lat, lng]);
             radioSeguridad.setLatLng([lat, lng]);
 
-            // Verificar si está lo suficientemente cerca del sitio para desbloquearlo
-            if (sitioDisponible && !grupoActual.progreso.includes(sitioDisponible.id)) {
-                var distancia = calcularDistancia(lat, lng, sitioDisponible.lat, sitioDisponible.lng);
-                
-                if (distancia < 90) {
-                    alert("¡Pista desbloqueada en " + sitioDisponible.nombre + "!");
+            // Verificar si el usuario está cerca de algún sitio aún no desbloqueado
+            db.sitios.forEach(sitio => {
+                if (!grupoActual.progreso.includes(sitio.id)) {
+                    var distancia = calcularDistancia(lat, lng, sitio.lat, sitio.lng);
                     
-                    // Agregar sitio a progreso y actualizar en `localStorage`
-                    grupoActual.progreso.push(sitioDisponible.id);
-                    localStorage.setItem("grupoActivo", JSON.stringify(grupoActual));
+                    if (distancia < 90) {
+                        alert("¡Pista desbloqueada en " + sitio.nombre + "!");
+                        
+                        // Agregar sitio a progreso y actualizar en `localStorage`
+                        grupoActual.progreso.push(sitio.id);
+                        localStorage.setItem("grupoActivo", JSON.stringify(grupoActual));
 
-                    // Eliminar marcador del mapa
-                    map.removeLayer(sitioDisponible.marcador);
-
-                    // Cargar el siguiente sitio
-                    sitioDisponible = db.sitios.find(s => !grupoActual.progreso.includes(s.id));
-                    cargarSitios();
+                        // No eliminamos el marcador, ya que queremos que permanezca visible
+                    }
                 }
-            }
+            });
             
         });
 
