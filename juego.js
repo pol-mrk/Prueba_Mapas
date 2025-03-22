@@ -71,11 +71,13 @@ function iniciarJuego() {
         function verificarProgreso(sitio, marcador) {
             var progreso = grupoActual ? grupoActual.progreso : [];
             
-            // Ordenamos los sitios por su ID (o "orden" si usas esa propiedad)
+            // Ordenamos los sitios por su ID
             db.sitios.sort((a, b) => a.id - b.id); 
 
             // Determinar cuál es el siguiente sitio a desbloquear
-            var siguienteSitio = db.sitios[progreso.length]; // El siguiente en la secuencia
+            var siguienteSitio = db.sitios.find(sitio => !progreso.includes(sitio.id));
+
+            console.log(siguienteSitio);
 
             // Solo permitimos desbloquear el siguiente sitio en la secuencia
             if (sitio.id === siguienteSitio.id) {

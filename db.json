@@ -12,8 +12,8 @@
     {
       "id": 2,
       "nombre": "Pitas Kebab",
-      "lat": 41.3697950303721,
-      "lng": 2.1068450063254685,
+      "lat": 41.349725829948625,
+      "lng": 2.1077228468083744,
       "icon": "https://cdn-icons-png.flaticon.com/128/6978/6978278.png",
       "tags": ["kebab"],
       "pista": "Donde vas cuando te pones malo?"
@@ -33,7 +33,7 @@
       "id": "1234",
       "miembros": ["Jugador1", "Jugador2"],
       "codigo": "1122",
-      "progreso": [2]
+      "progreso": [0]
     }
   ],
   "tags": ["colegio", "kebab", "hospital"]
