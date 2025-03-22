@@ -93,6 +93,8 @@ function iniciarJuego() {
                     grupoActual.progreso.push(sitio.id);
                     localStorage.setItem("grupoActivo", JSON.stringify(grupoActual));
 
+                    // console.log(siguienteSitio);
+
                     // Volver a cargar sitios para mostrar solo el siguiente
                     cargarSitios();
                 }
