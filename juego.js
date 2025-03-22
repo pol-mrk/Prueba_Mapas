@@ -64,7 +64,7 @@ function iniciarJuego() {
             color: 'blue',       // Color del borde
             fillColor: 'blue',   // Color de relleno
             fillOpacity: 0.3,    // Opacidad del relleno
-            radius: 80           // Radio en metros
+            radius: 85           // Radio en metros
         }).addTo(map);
 
         // Verificamos el progreso
@@ -76,7 +76,7 @@ function iniciarJuego() {
 
                 var distancia = calcularDistancia(miUbicacion.getLatLng().lat, miUbicacion.getLatLng().lng, sitio.lat, sitio.lng);
 
-                if (distancia < 80) {
+                if (distancia < 85) {
 
                     alert("¡Pista desbloqueada en " + sitio.nombre + "!");
                     grupoActual.progreso.push(sitio.id);
