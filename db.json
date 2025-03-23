@@ -33,7 +33,7 @@
       "id": "1234",
       "miembros": ["Jugador1", "Jugador2"],
       "codigo": "1122",
-      "progreso": [0]
+      "progreso": [1]
     }
   ],
   "tags": ["colegio", "kebab", "hospital"]
